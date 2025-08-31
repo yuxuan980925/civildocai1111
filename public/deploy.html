@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CivilDoc AI - Deploy to Cloud in One Click</title>
+  <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+  <style>
+    .gradient-bg {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+    .card-hover {
+      transition: all 0.3s ease;
+    }
+    .card-hover:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+    }
+    .pulse-animation {
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.7; }
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-gray-50">
+  <!-- Hero Section with Gradient Background -->
+  <div class="gradient-bg min-h-screen flex flex-col">
+    <!-- Header -->
+    <header class="container mx-auto px-4 py-6">
+      <nav class="flex items-center justify-between">
+        <div class="flex items-center space-x-3">
+          <img src="/logo.svg" alt="CivilDoc AI" class="h-10 w-10">
+          <span class="text-white text-xl font-bold">CivilDoc AI</span>
+        </div>
+        <div class="hidden md:flex space-x-6">
+          <a href="#features" class="text-white hover:text-blue-200 transition-colors">Features</a>
+          <a href="#demo" class="text-white hover:text-blue-200 transition-colors">Live Demo</a>
+          <a href="#deploy" class="text-white hover:text-blue-200 transition-colors">Deploy</a>
+        </div>
+      </nav>
+    </header>
+
+    <!-- Main Hero Content -->
+    <div class="flex-1 flex items-center justify-center px-4">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="mb-8">
+          <div class="inline-flex items-center justify-center w-20 h-20 bg-white bg-opacity-20 rounded-full mb-6">
+            <img src="/logo.svg" alt="CivilDoc AI Logo" class="h-12 w-12">
+          </div>
+          <h1 class="text-5xl md:text-6xl font-bold text-white mb-6 leading-tight">
+            CivilDoc AI
+          </h1>
+          <p class="text-xl md:text-2xl text-blue-100 mb-4">
+            AI-Powered Documentation Assistant for Civil Engineers
+          </p>
+          <p class="text-lg text-blue-200 max-w-2xl mx-auto">
+            Leverage artificial intelligence to automate document generation, data analysis, and compliance checking, allowing engineers to focus on innovative design
+          </p>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
+          <a href="#demo" 
+             class="bg-white text-blue-600 hover:bg-blue-50 font-bold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg">
+            🎯 Try Live Demo
+          </a>
+          <a href="#deploy" 
+             class="bg-blue-500 hover:bg-blue-600 text-white font-bold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg">
+            🚀 Deploy Now
+          </a>
+        </div>
+
+        <!-- Stats -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center">
+          <div class="text-white">
+            <div class="text-3xl font-bold mb-2">2 Minutes</div>
+            <div class="text-blue-200">Quick Deploy</div>
+          </div>
+          <div class="text-white">
+            <div class="text-3xl font-bold mb-2">100%</div>
+            <div class="text-blue-200">Open Source</div>
+          </div>
+          <div class="text-white">
+            <div class="text-3xl font-bold mb-2">AI-Powered</div>
+            <div class="text-blue-200">Smart Assistant</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Features Section -->
+  <section id="features" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="text-center mb-16">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">Core Features</h2>
+        <p class="text-xl text-gray-600 max-w-2xl mx-auto">
+          Intelligent workflows designed specifically for civil engineers to boost productivity and reduce repetitive tasks
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Feature 1 -->
+        <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+          <div class="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-4">Smart Document Management</h3>
+          <p class="text-gray-600">
+            Automated document creation, version control, and collaborative editing with support for various engineering document formats and templates
+          </p>
+        </div>
+
+        <!-- Feature 2 -->
+        <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+          <div class="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-4">AI Agent Tasks</h3>
+          <p class="text-gray-600">
+            Automatically execute repetitive tasks like data analysis, report generation, and compliance checking to save valuable time
+          </p>
+        </div>
+
+        <!-- Feature 3 -->
+        <div class="card-hover bg-white p-8 rounded-xl shadow-lg border border-gray-100">
+          <div class="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
+            <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/>
+            </svg>
+          </div>
+          <h3 class="text-xl font-bold text-gray-900 mb-4">Data Analysis</h3>
+          <p class="text-gray-600">
+            Intelligently analyze engineering data, generate visualized charts and professional reports with support for multiple data formats
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Demo Section -->
+  <section id="demo" class="py-20 bg-gray-50">
+    <div class="container mx-auto px-4">
+      <div class="max-w-4xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Live Demo Experience</h2>
+          <p class="text-xl text-gray-600">
+            No installation required - experience the powerful features of CivilDoc AI instantly
+          </p>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div class="order-2 lg:order-1">
+            <div class="space-y-6">
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <span class="text-blue-600 font-bold">1</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">Document Management Demo</h3>
+                  <p class="text-gray-600">Browse, create, and edit engineering documents with AI writing assistant features</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <span class="text-blue-600 font-bold">2</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">AI Task Execution</h3>
+                  <p class="text-gray-600">Launch AI agent tasks and watch real-time execution processes and result generation</p>
+                </div>
+              </div>
+              <div class="flex items-start space-x-4">
+                <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                  <span class="text-blue-600 font-bold">3</span>
+                </div>
+                <div>
+                  <h3 class="text-lg font-semibold text-gray-900 mb-2">Complete Workflow</h3>
+                  <p class="text-gray-600">Experience the complete intelligent workflow from document creation to AI analysis</p>
+                </div>
+              </div>
+            </div>
+            
+            <div class="mt-8">
+              <a href="/demo.html" 
+                 class="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-6 rounded-lg transition-colors duration-200">
+                <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                </svg>
+                Try Demo Now
+              </a>
+            </div>
+          </div>
+
+          <div class="order-1 lg:order-2">
+            <div class="bg-white rounded-xl shadow-lg p-8 border">
+              <div class="aspect-video bg-gradient-to-br from-blue-50 to-indigo-100 rounded-lg flex items-center justify-center">
+                <div class="text-center">
+                  <div class="w-16 h-16 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4 pulse-animation">
+                    <svg class="w-8 h-8 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                  </div>
+                  <p class="text-gray-600 font-medium">Click to experience full feature demo</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Deploy Section -->
+  <section id="deploy" class="py-20 bg-white">
+    <div class="container mx-auto px-4">
+      <div class="max-w-3xl mx-auto">
+        <div class="text-center mb-12">
+          <h2 class="text-4xl font-bold text-gray-900 mb-4">Deploy to Cloud in One Click</h2>
+          <p class="text-xl text-gray-600">
+            Get your own CivilDoc AI instance in 2 minutes - completely free
+          </p>
+        </div>
+
+        <div class="bg-gradient-to-r from-blue-50 to-indigo-50 rounded-2xl p-8 mb-8">
+          <div class="text-center mb-8">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-blue-100 rounded-full mb-4">
+              <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M9 19l3 3m0 0l3-3m-3 3V10"/>
+              </svg>
+            </div>
+            <h3 class="text-2xl font-bold text-gray-900 mb-2">Ready to Deploy?</h3>
+            <p class="text-gray-600 mb-6">Click the button below to instantly deploy CivilDoc AI to Vercel cloud platform</p>
+            
+            <a href="https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fyourusername%2Fcivildoc-ai&project-name=civildoc-ai&repository-name=civildoc-ai" 
+               target="_blank" 
+               class="inline-flex items-center bg-black hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-lg transition-all duration-200 transform hover:scale-105 shadow-lg">
+              <svg class="h-6 w-6 mr-3" viewBox="0 0 116 100" fill="#fff" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M57.5 0L115 100H0L57.5 0z"></path>
+              </svg>
+              Deploy to Vercel
+            </a>
+          </div>
+        </div>
+
+        <!-- Instructions -->
+        <div class="bg-white border border-gray-200 rounded-xl p-8">
+          <h3 class="text-xl font-bold text-gray-900 mb-6 flex items-center">
+            <svg class="w-6 h-6 mr-2 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+            Deployment Steps
+          </h3>
+          <div class="space-y-4">
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <span class="text-blue-600 font-bold text-sm">1</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Click Deploy Button</h4>
+                <p class="text-gray-600 text-sm">Automatically redirects to Vercel deployment page</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <span class="text-blue-600 font-bold text-sm">2</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Login or Sign Up</h4>
+                <p class="text-gray-600 text-sm">Quick login with your GitHub/GitLab account</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center">
+                <span class="text-blue-600 font-bold text-sm">3</span>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Confirm Deployment Settings</h4>
+                <p class="text-gray-600 text-sm">Keep default settings and click "Deploy" to start</p>
+              </div>
+            </div>
+            <div class="flex items-start space-x-4">
+              <div class="flex-shrink-0 w-8 h-8 bg-green-100 rounded-full flex items-center justify-center">
+                <svg class="w-4 h-4 text-green-600" fill="currentColor" viewBox="0 0 20 20">
+                  <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-gray-900">Complete Deployment</h4>
+                <p class="text-gray-600 text-sm">Wait 2 minutes to get your exclusive access link</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Alternative Deployment Options -->
+        <div class="mt-8 p-6 bg-gray-50 rounded-xl">
+          <h4 class="font-semibold text-gray-900 mb-4">Alternative Deployment Options</h4>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <a href="https://app.netlify.com/start/deploy?repository=https://github.com/yourusername/civildoc-ai" 
+               target="_blank"
+               class="flex items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:border-blue-300 transition-colors">
+              <span class="font-medium text-gray-900">Deploy to Netlify</span>
+            </a>
+            <a href="../demo.html" 
+               class="flex items-center justify-center p-3 bg-white border border-gray-200 rounded-lg hover:border-blue-300 transition-colors">
+               <span class="font-medium text-gray-900">Local Demo Version</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="bg-gray-900 text-white py-12">
+    <div class="container mx-auto px-4">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+        <div class="col-span-1 md:col-span-2">
+          <div class="flex items-center space-x-3 mb-4">
+            <img src="/logo.svg" alt="CivilDoc AI" class="h-8 w-8">
+            <span class="text-xl font-bold">CivilDoc AI</span>
+          </div>
+          <p class="text-gray-400 mb-4">
+            AI-powered documentation assistant for civil engineers, leveraging AI technology to boost productivity and enable professionals to focus on innovative design.
+          </p>
+          <div class="flex space-x-4">
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M24 4.557c-.883.392-1.832.656-2.828.775 1.017-.609 1.798-1.574 2.165-2.724-.951.564-2.005.974-3.127 1.195-.897-.957-2.178-1.555-3.594-1.555-3.179 0-5.515 2.966-4.797 6.045-4.091-.205-7.719-2.165-10.148-5.144-1.29 2.213-.669 5.108 1.523 6.574-.806-.026-1.566-.247-2.229-.616-.054 2.281 1.581 4.415 3.949 4.89-.693.188-1.452.232-2.224.084.626 1.956 2.444 3.379 4.6 3.419-2.07 1.623-4.678 2.348-7.29 2.04 2.179 1.397 4.768 2.212 7.548 2.212 9.142 0 14.307-7.721 13.995-14.646.962-.695 1.797-1.562 2.457-2.549z"/>
+              </svg>
+            </a>
+            <a href="#" class="text-gray-400 hover:text-white transition-colors">
+              <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12.017 0C5.396 0 .029 5.367.029 11.987c0 5.079 3.158 9.417 7.618 11.174-.105-.949-.199-2.403.041-3.439.219-.937 1.406-5.957 1.406-5.957s-.359-.72-.359-1.781c0-1.663.967-2.911 2.168-2.911 1.024 0 1.518.769 1.518 1.688 0 1.029-.653 2.567-.992 3.992-.285 1.193.6 2.165 1.775 2.165 2.128 0 3.768-2.245 3.768-5.487 0-2.861-2.063-4.869-5.008-4.869-3.41 0-5.409 2.562-5.409 5.199 0 1.033.394 2.143.889 2.741.099.12.112.225.085.345-.09.375-.293 1.199-.334 1.363-.053.225-.172.271-.402.165-1.495-.69-2.433-2.878-2.433-4.646 0-3.776 2.748-7.252 7.92-7.252 4.158 0 7.392 2.967 7.392 6.923 0 4.135-2.607 7.462-6.233 7.462-1.214 0-2.357-.629-2.754-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24.009 12.017 24.009c6.624 0 11.99-5.367 11.99-11.988C24.007 5.367 18.641.001.012.001z"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Product</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#features" class="hover:text-white transition-colors">Features</a></li>
+            <li><a href="#demo" class="hover:text-white transition-colors">Live Demo</a></li>
+            <li><a href="#deploy" class="hover:text-white transition-colors">Deploy Guide</a></li>
+          </ul>
+        </div>
+        
+        <div>
+          <h3 class="font-semibold mb-4">Support</h3>
+          <ul class="space-y-2 text-gray-400">
+            <li><a href="#" class="hover:text-white transition-colors">Documentation</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">FAQ</a></li>
+            <li><a href="#" class="hover:text-white transition-colors">Contact Us</a></li>
+          </ul>
+        </div>
+      </div>
+      
+      <div class="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
+        <p>&copy; 2023 CivilDoc AI. All rights reserved.</p>
+      </div>
+    </div>
+  </footer>
+</body>
+</html> 

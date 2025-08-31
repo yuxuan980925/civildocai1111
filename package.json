@@ -1,0 +1,24 @@
+{
+  "name": "civildoc-ai-demo",
+  "version": "1.0.0",
+  "description": "CivilDoc AI - AI-Powered Documentation Assistant Demo",
+  "main": "public/index.html",
+  "scripts": {
+    "start": "echo 'Static site - open public/index.html'",
+    "build": "echo 'Static site deployment - copying files'",
+    "deploy": "echo 'Deploy to static hosting platform'"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yuxuan980925/civildoc-ai1.git"
+  },
+  "keywords": [
+    "ai",
+    "documentation",
+    "civil-engineering",
+    "demo",
+    "static-site"
+  ],
+  "author": "yuxuan980925",
+  "license": "MIT"
+}

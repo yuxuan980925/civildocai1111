@@ -1,0 +1,51 @@
+{
+  "documents": [
+    {
+      "id": "doc-1",
+      "title": "Highway Design Report",
+      "date": "2023-10-15",
+      "status": "Draft",
+      "preview": "This report outlines the design specifications for the A42 highway extension project including traffic flow analysis, structural requirements, and environmental considerations..."
+    },
+    {
+      "id": "doc-2",
+      "title": "Structural Analysis - Bridge B24",
+      "date": "2023-09-28",
+      "status": "Completed",
+      "preview": "Comprehensive structural integrity analysis of the B24 bridge over River Thames, including load capacity assessments and material stress evaluations..."
+    },
+    {
+      "id": "doc-3",
+      "title": "Soil Testing Report - NW Region",
+      "date": "2023-11-02",
+      "status": "In Review",
+      "preview": "Detailed results of soil composition and stability testing in the North West development area, covering geological surveys and foundation recommendations..."
+    }
+  ],
+  "agentTasks": [
+    {
+      "id": "task-1",
+      "title": "Generate Environmental Impact Report",
+      "description": "Create a comprehensive environmental impact assessment for the London Underground extension project, including air quality, noise pollution, and ecosystem effects analysis",
+      "estimatedTime": "45 minutes",
+      "complexity": "High",
+      "status": "Available"
+    },
+    {
+      "id": "task-2",
+      "title": "Extract Data from Building Plans",
+      "description": "Automatically extract key measurements, specifications, and technical details from uploaded architectural and engineering building plans using AI-powered document analysis",
+      "estimatedTime": "15 minutes",
+      "complexity": "Medium",
+      "status": "Available"
+    },
+    {
+      "id": "task-3",
+      "title": "Compliance Check - Building Regulations",
+      "description": "Perform automated compliance verification against current UK building regulations, safety codes, and industry standards with detailed flagging of potential issues",
+      "estimatedTime": "30 minutes",
+      "complexity": "High",
+      "status": "Available"
+    }
+  ]
+} 

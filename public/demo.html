@@ -1,0 +1,770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CivilDoc AI - Core Features Demo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        blue: {
+                            800: '#1e40af',
+                            600: '#2563eb',
+                            500: '#3b82f6',
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .line-clamp-3 {
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+        }
+        
+        .animate-pulse {
+            animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: .5; }
+        }
+        
+        .animate-spin {
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        /* Enhanced UX styles */
+        .tab-content {
+            opacity: 1;
+            transition: opacity 0.3s ease-in-out;
+        }
+        
+        .tab-content.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .modal-enter {
+            animation: modalEnter 0.3s ease-out;
+        }
+        
+        @keyframes modalEnter {
+            from {
+                opacity: 0;
+                transform: scale(0.9);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        .success-notification {
+            animation: slideInRight 0.3s ease-out;
+        }
+        
+        @keyframes slideInRight {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Improved hover effects */
+        .document-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+        
+        .task-card:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-50 min-h-screen">
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex items-center">
+                    <div class="h-8 w-8 bg-blue-800 rounded mr-3 flex items-center justify-center">
+                        <svg width="20" height="20" viewBox="0 0 20 20" fill="white">
+                            <rect x="2" y="6" width="16" height="2"/>
+                            <rect x="2" y="10" width="12" height="2"/>
+                            <rect x="2" y="14" width="8" height="2"/>
+                            <circle cx="16" cy="4" r="2" fill="#FCD34D"/>
+                        </svg>
+                    </div>
+                    <h1 class="text-xl font-bold text-blue-800">CivilDoc AI</h1>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button class="p-2 rounded-md text-gray-400 hover:text-gray-500">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/>
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                        </svg>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Navigation Tabs -->
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="border-b border-gray-200">
+            <nav class="-mb-px flex space-x-8">
+                <button onclick="showTab('documents')" id="tab-documents" class="py-4 px-1 border-b-2 border-blue-500 text-blue-600 font-medium text-sm flex items-center">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
+                    Document Management
+                </button>
+                <button onclick="showTab('agent-tasks')" id="tab-agent-tasks" class="py-4 px-1 border-b-2 border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300 font-medium text-sm flex items-center">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                    </svg>
+                    AI Agent Tasks
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Help Banner -->
+    <div id="help-banner" class="bg-blue-50 border-l-4 border-blue-400 p-4">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between">
+                <div class="flex items-center">
+                    <svg class="h-5 w-5 text-blue-400 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <p class="text-sm text-blue-700">
+                        <strong>Demo Guide:</strong> Use keyboard shortcuts - Press <kbd class="bg-white px-1 rounded border">1</kbd> for Documents, <kbd class="bg-white px-1 rounded border">2</kbd> for AI Tasks, <kbd class="bg-white px-1 rounded border">ESC</kbd> to close modals
+                    </p>
+                </div>
+                <button onclick="document.getElementById('help-banner').style.display='none'" class="text-blue-400 hover:text-blue-600">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+        <!-- Documents Tab -->
+        <div id="documents-content" class="tab-content">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">Document Management</h2>
+                <button onclick="showNewDocumentModal()" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center">
+                    <svg class="h-5 w-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6"/>
+                    </svg>
+                    New Document
+                </button>
+            </div>
+
+            <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3" id="documents-grid">
+                <!-- Documents will be loaded here -->
+            </div>
+        </div>
+
+        <!-- Agent Tasks Tab -->
+        <div id="agent-tasks-content" class="tab-content hidden">
+            <div class="flex justify-between items-center mb-6">
+                <h2 class="text-2xl font-bold text-gray-900">AI Agent Tasks</h2>
+                <div class="text-sm text-gray-500">
+                    Select a task for the AI agent to complete for you
+                </div>
+            </div>
+
+            <div class="space-y-4" id="agent-tasks-list">
+                <!-- Agent tasks will be loaded here -->
+            </div>
+        </div>
+    </main>
+
+    <!-- Document Detail Modal -->
+    <div id="document-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-4xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="modal-title" class="text-xl font-bold text-gray-900"></h3>
+                        <div class="flex items-center space-x-2">
+                            <button onclick="toggleEdit()" id="edit-btn" class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">
+                                Edit
+                            </button>
+                            <button onclick="closeModal()" class="text-gray-400 hover:text-gray-600">
+                                <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                        </div>
+                    </div>
+                    <div id="modal-content" class="prose max-w-none">
+                        <!-- Content will be loaded here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Task Execution Modal -->
+    <div id="task-modal" class="fixed inset-0 bg-gray-600 bg-opacity-50 hidden z-50">
+        <div class="flex items-center justify-center min-h-screen px-4">
+            <div class="bg-white rounded-lg shadow-xl max-w-6xl w-full max-h-[90vh] overflow-y-auto">
+                <div class="p-6">
+                    <div class="flex justify-between items-center mb-4">
+                        <h3 id="task-modal-title" class="text-xl font-bold text-gray-900"></h3>
+                        <button onclick="closeTaskModal()" class="text-gray-400 hover:text-gray-600">
+                            <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        </button>
+                    </div>
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+                        <!-- Task controls -->
+                        <div class="lg:col-span-1">
+                            <div class="bg-gray-50 rounded-lg p-4 mb-4">
+                                <div id="task-description" class="text-sm text-gray-600 mb-4"></div>
+                                <div class="space-y-2">
+                                    <button onclick="startTask()" id="start-btn" class="w-full bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md flex items-center justify-center">
+                                        <svg class="h-4 w-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14.828 14.828a4 4 0 01-5.656 0M9 10h1m4 0h1m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                        </svg>
+                                        Start Execution
+                                    </button>
+                                </div>
+                            </div>
+                            <div class="bg-white border rounded-lg p-4">
+                                <h4 class="font-medium text-gray-900 mb-3">Execution Steps</h4>
+                                <div id="task-steps" class="space-y-3">
+                                    <!-- Steps will be loaded here -->
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Task output -->
+                        <div class="lg:col-span-2">
+                            <div class="bg-white border rounded-lg p-4 mb-4">
+                                <h4 class="font-medium text-gray-900 mb-3">Execution Logs</h4>
+                                <div id="task-logs" class="bg-gray-900 text-green-400 p-4 rounded font-mono text-sm h-48 overflow-y-auto">
+                                    <div class="text-gray-500">Waiting for task to start...</div>
+                                </div>
+                            </div>
+                            <div class="bg-white border rounded-lg p-4">
+                                <h4 class="font-medium text-gray-900 mb-3">Generated Content Preview</h4>
+                                <div id="task-output" class="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                                    <svg class="h-12 w-12 text-gray-400 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                                    </svg>
+                                    <p class="text-gray-500">Generated content will be displayed here after starting the task</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-white border-t mt-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div class="text-center text-gray-500 text-sm">
+                © 2023 CivilDoc AI - AI-Powered Documentation Assistant for Civil Engineers | Core Features Demo
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mock data
+        const mockDocuments = [
+            {
+                id: "doc-1",
+                title: "Highway Design Report",
+                date: "2023-10-15",
+                status: "Draft",
+                preview: "This report outlines the design specifications for the A42 highway extension project..."
+            },
+            {
+                id: "doc-2",
+                title: "Structural Analysis - B24 Bridge",
+                date: "2023-09-28",
+                status: "Completed",
+                preview: "Structural integrity analysis of the B24 bridge over River Thames..."
+            },
+            {
+                id: "doc-3",
+                title: "Soil Testing Report - NW Region",
+                date: "2023-11-02",
+                status: "In Review",
+                preview: "Results of soil composition and stability testing in the North West development area..."
+            }
+        ];
+
+        const mockAgentTasks = [
+            {
+                id: "task-1",
+                title: "Generate Environmental Impact Report",
+                description: "Create a comprehensive environmental impact assessment for the London Underground extension project",
+                estimatedTime: "45 minutes",
+                complexity: "High",
+                status: "Available"
+            },
+            {
+                id: "task-2",
+                title: "Extract Data from Building Plans",
+                description: "Extract key measurements and specifications from uploaded building plans",
+                estimatedTime: "15 minutes",
+                complexity: "Medium",
+                status: "Available"
+            },
+            {
+                id: "task-3",
+                title: "Compliance Check - Building Regulations",
+                description: "Check document against current UK building regulations and flag potential compliance issues",
+                estimatedTime: "30 minutes",
+                complexity: "High",
+                status: "Available"
+            }
+        ];
+
+        let currentEditMode = false;
+        let currentTask = null;
+        let taskRunning = false;
+
+        // Initialize the app
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('CivilDoc AI Demo - Initializing...');
+            loadDocuments();
+            loadAgentTasks();
+            
+            // Add smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth' });
+                    }
+                });
+            });
+            
+            console.log('CivilDoc AI Demo - Ready!');
+            
+            // Add keyboard shortcuts
+            document.addEventListener('keydown', function(e) {
+                // ESC to close modals
+                if (e.key === 'Escape') {
+                    closeModal();
+                    closeTaskModal();
+                }
+                
+                // Tab navigation with 1, 2 keys
+                if (e.key === '1' && !e.ctrlKey && !e.altKey) {
+                    showTab('documents');
+                }
+                if (e.key === '2' && !e.ctrlKey && !e.altKey) {
+                    showTab('agent-tasks');
+                }
+            });
+            
+            // Add loading animation for better UX
+            setTimeout(() => {
+                document.body.classList.add('loaded');
+            }, 100);
+        });
+
+        // Tab management
+        function showTab(tabName) {
+            // Hide all tab contents
+            document.querySelectorAll('.tab-content').forEach(el => el.classList.add('hidden'));
+            
+            // Show selected tab content
+            document.getElementById(tabName + '-content').classList.remove('hidden');
+            
+            // Update tab buttons
+            document.querySelectorAll('[id^="tab-"]').forEach(el => {
+                el.className = el.className.replace('border-blue-500 text-blue-600', 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300');
+            });
+            
+            document.getElementById('tab-' + tabName).className = document.getElementById('tab-' + tabName).className.replace('border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300', 'border-blue-500 text-blue-600');
+        }
+
+        // Load documents
+        function loadDocuments() {
+            const grid = document.getElementById('documents-grid');
+            grid.innerHTML = '';
+            
+            mockDocuments.forEach(doc => {
+                const statusColor = getStatusColor(doc.status);
+                const docElement = document.createElement('div');
+                docElement.className = 'document-card bg-white rounded-lg shadow-sm border hover:shadow-md transition-all duration-300 cursor-pointer';
+                docElement.onclick = () => showDocumentDetail(doc);
+                
+                docElement.innerHTML = `
+                    <div class="p-6">
+                        <div class="flex items-center justify-between mb-4">
+                            <h3 class="text-lg font-medium text-gray-900 truncate">${doc.title}</h3>
+                            <span class="px-2 py-1 text-xs font-medium rounded-full ${statusColor}">
+                                ${doc.status}
+                            </span>
+                        </div>
+                        <p class="text-gray-600 text-sm mb-4 line-clamp-3">${doc.preview}</p>
+                        <div class="flex items-center justify-between">
+                            <span class="text-sm text-gray-500">${doc.date}</span>
+                            <span class="text-blue-600 hover:text-blue-800 flex items-center text-sm">
+                                <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"/>
+                                </svg>
+                                View
+                            </span>
+                        </div>
+                    </div>
+                `;
+                
+                grid.appendChild(docElement);
+            });
+        }
+
+        // Load agent tasks
+        function loadAgentTasks() {
+            const list = document.getElementById('agent-tasks-list');
+            list.innerHTML = '';
+            
+            mockAgentTasks.forEach(task => {
+                const complexityIcon = getComplexityIcon(task.complexity);
+                const taskElement = document.createElement('div');
+                taskElement.className = 'task-card bg-white rounded-lg shadow-sm border hover:shadow-md transition-all duration-300';
+                
+                taskElement.innerHTML = `
+                    <div class="p-6">
+                        <div class="flex items-start justify-between">
+                            <div class="flex-1">
+                                <div class="flex items-center mb-2">
+                                    ${complexityIcon}
+                                    <h3 class="text-lg font-medium text-gray-900 ml-2">${task.title}</h3>
+                                </div>
+                                <p class="text-gray-600 mb-4">${task.description}</p>
+                                <div class="flex items-center text-sm text-gray-500 space-x-4">
+                                    <span class="flex items-center">
+                                        <svg class="h-4 w-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                        </svg>
+                                        Estimated Time: ${task.estimatedTime}
+                                    </span>
+                                    <span class="px-2 py-1 rounded-full text-xs font-medium ${getComplexityColor(task.complexity)}">
+                                        Complexity: ${task.complexity}
+                                    </span>
+                                </div>
+                            </div>
+                            <button onclick="showTaskModal('${task.id}')" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md ml-4">
+                                Launch Task
+                            </button>
+                        </div>
+                    </div>
+                `;
+                
+                list.appendChild(taskElement);
+            });
+        }
+
+        // Utility functions
+        function getStatusColor(status) {
+            switch(status.toLowerCase()) {
+                case 'completed':
+                    return 'text-green-600 bg-green-100';
+                case 'draft':
+                    return 'text-yellow-600 bg-yellow-100';
+                case 'in review':
+                    return 'text-blue-600 bg-blue-100';
+                default:
+                    return 'text-gray-600 bg-gray-100';
+            }
+        }
+
+        function getComplexityIcon(complexity) {
+            switch(complexity.toLowerCase()) {
+                case 'high':
+                    return '<svg class="h-4 w-4 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-2.5L13.732 4c-.77-.833-1.964-.833-2.732 0L3.732 16.5c-.77.833.192 2.5 1.732 2.5z"/></svg>';
+                case 'medium':
+                    return '<svg class="h-4 w-4 text-yellow-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+                default:
+                    return '<svg class="h-4 w-4 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>';
+            }
+        }
+
+        function getComplexityColor(complexity) {
+            switch(complexity.toLowerCase()) {
+                case 'high':
+                    return 'bg-red-100 text-red-600';
+                case 'medium':
+                    return 'bg-yellow-100 text-yellow-600';
+                default:
+                    return 'bg-green-100 text-green-600';
+            }
+        }
+
+        // Document modal functions
+        function showDocumentDetail(doc) {
+            document.getElementById('modal-title').textContent = doc.title;
+            document.getElementById('modal-content').innerHTML = `
+                <div class="space-y-4">
+                    <div class="flex items-center text-sm text-gray-500 space-x-6 border-b pb-4">
+                        <span>Created: ${doc.date}</span>
+                        <span>Status: ${doc.status}</span>
+                        <span>Type: Engineering Report</span>
+                    </div>
+                    <div id="document-text">
+                        <p class="text-gray-700 mb-4">${doc.preview}</p>
+                        <h3 class="text-xl font-semibold mb-3">Document Details</h3>
+                        <p class="mb-4">This section contains the detailed document content. In a real application, this would display the complete engineering document content, including:</p>
+                        <ol class="list-decimal pl-6 space-y-2 mb-4">
+                            <li>Project Overview</li>
+                            <li>Technical Specifications</li>
+                            <li>Design Drawings</li>
+                            <li>Materials List</li>
+                            <li>Construction Plan</li>
+                            <li>Quality Control Standards</li>
+                            <li>Safety Requirements</li>
+                            <li>Environmental Impact Assessment</li>
+                        </ol>
+                        <p>Users can directly edit document content here, with AI assistant providing real-time suggestions and formatting help.</p>
+                    </div>
+                    <div id="ai-assistant" class="bg-blue-50 rounded-lg border border-blue-200 p-4 hidden">
+                        <h4 class="text-lg font-medium text-blue-900 mb-3">AI Writing Assistant</h4>
+                        <div class="space-y-2 text-sm text-blue-700">
+                            <div>💡 Suggestion: You can add more technical details to improve this report</div>
+                            <div>📊 Detected: Document lacks data charts, would you like AI to generate relevant charts?</div>
+                            <div>✅ Format Check: Document structure meets engineering standards</div>
+                            <div class="flex space-x-2 mt-3">
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">Generate Charts</button>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">Check Compliance</button>
+                                <button class="bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded text-sm">Optimize Content</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            const modal = document.getElementById('document-modal');
+            modal.classList.remove('hidden');
+            modal.querySelector('.bg-white').classList.add('modal-enter');
+        }
+
+        function toggleEdit() {
+            currentEditMode = !currentEditMode;
+            const editBtn = document.getElementById('edit-btn');
+            const documentText = document.getElementById('document-text');
+            const aiAssistant = document.getElementById('ai-assistant');
+            
+            if (currentEditMode) {
+                editBtn.textContent = 'Save';
+                aiAssistant.classList.remove('hidden');
+                // In a real app, you would make the content editable here
+            } else {
+                editBtn.textContent = 'Edit';
+                aiAssistant.classList.add('hidden');
+            }
+        }
+
+        function closeModal() {
+            document.getElementById('document-modal').classList.add('hidden');
+            currentEditMode = false;
+        }
+
+        function showNewDocumentModal() {
+            // Create a more sophisticated modal for new document creation
+            const modalHtml = `
+                <div class="fixed inset-0 bg-gray-600 bg-opacity-50 z-50 flex items-center justify-center px-4">
+                    <div class="bg-white rounded-lg shadow-xl max-w-md w-full p-6">
+                        <h3 class="text-lg font-bold text-gray-900 mb-4">Create New Document</h3>
+                        <div class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Document Title</label>
+                                <input type="text" class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500" placeholder="Enter document title...">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-1">Document Type</label>
+                                <select class="w-full border border-gray-300 rounded-md px-3 py-2 focus:border-blue-500 focus:ring-1 focus:ring-blue-500">
+                                    <option>Engineering Report</option>
+                                    <option>Design Specification</option>
+                                    <option>Technical Analysis</option>
+                                    <option>Project Proposal</option>
+                                </select>
+                            </div>
+                            <div class="flex space-x-3 pt-4">
+                                <button onclick="this.closest('.fixed').remove()" class="flex-1 bg-gray-300 hover:bg-gray-400 text-gray-700 px-4 py-2 rounded-md">Cancel</button>
+                                <button onclick="createNewDocument(); this.closest('.fixed').remove()" class="flex-1 bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-md">Create</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+            document.body.insertAdjacentHTML('beforeend', modalHtml);
+        }
+        
+        function createNewDocument() {
+            // Simulate document creation
+            const newDoc = {
+                id: `doc-${Date.now()}`,
+                title: 'New Engineering Document',
+                date: new Date().toISOString().split('T')[0],
+                status: 'Draft',
+                preview: 'This is a newly created document. Click to edit and add your content...'
+            };
+            mockDocuments.unshift(newDoc);
+            loadDocuments();
+            
+            // Show success message
+            const successMsg = document.createElement('div');
+            successMsg.className = 'success-notification fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded-md shadow-lg z-50 flex items-center';
+            successMsg.innerHTML = `
+                <svg class="h-4 w-4 mr-2" fill="currentColor" viewBox="0 0 20 20">
+                    <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/>
+                </svg>
+                Document created successfully!
+            `;
+            document.body.appendChild(successMsg);
+            setTimeout(() => successMsg.remove(), 3000);
+        }
+
+        // Task modal functions
+        function showTaskModal(taskId) {
+            currentTask = mockAgentTasks.find(t => t.id === taskId);
+            if (!currentTask) return;
+            
+            document.getElementById('task-modal-title').textContent = currentTask.title;
+            document.getElementById('task-description').textContent = currentTask.description;
+            
+            // Load task steps
+            const stepsContainer = document.getElementById('task-steps');
+            const steps = [
+                { title: 'Analyze Project Scope', description: 'Collect and analyze basic project information' },
+                { title: 'Environmental Data Collection', description: 'Gather relevant environmental data and historical records' },
+                { title: 'Impact Assessment Analysis', description: 'Analyze potential environmental impacts of the project' },
+                { title: 'Mitigation Measures Recommendation', description: 'Propose environmental protection and mitigation measures' },
+                { title: 'Generate Final Report', description: 'Integrate all information to generate complete report' }
+            ];
+            
+            stepsContainer.innerHTML = steps.map((step, index) => `
+                <div class="flex items-start" id="step-${index}">
+                    <div class="flex-shrink-0 mr-3 mt-1">
+                        <div class="h-5 w-5 rounded-full border-2 border-gray-300"></div>
+                    </div>
+                    <div class="flex-1">
+                        <h5 class="text-sm font-medium text-gray-900">${step.title}</h5>
+                        <p class="text-xs text-gray-500">${step.description}</p>
+                    </div>
+                </div>
+            `).join('');
+            
+            const taskModal = document.getElementById('task-modal');
+            taskModal.classList.remove('hidden');
+            taskModal.querySelector('.bg-white').classList.add('modal-enter');
+        }
+
+        function startTask() {
+            if (taskRunning) return;
+            
+            taskRunning = true;
+            document.getElementById('start-btn').innerHTML = `
+                <svg class="h-4 w-4 mr-2 animate-spin" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"/>
+                </svg>
+                Executing...
+            `;
+            document.getElementById('start-btn').disabled = true;
+            
+            const logs = document.getElementById('task-logs');
+            logs.innerHTML = '';
+            
+            // Simulate task execution
+            const steps = document.querySelectorAll('[id^="step-"]');
+            let currentStep = 0;
+            
+            function executeStep() {
+                if (currentStep >= steps.length) {
+                    addLog('✅ Task execution completed!');
+                    document.getElementById('task-output').innerHTML = `
+                        <div class="text-left">
+                            <h4 class="text-lg font-medium text-gray-900 mb-2">Environmental Impact Report</h4>
+                            <div class="bg-gray-50 p-4 rounded-md">
+                                <h5 class="font-medium text-gray-900 mb-2">Report Outline:</h5>
+                                <ul class="text-sm text-gray-600 space-y-1">
+                                    <li>• 1. Project Overview and Background</li>
+                                    <li>• 2. Environmental Baseline Survey</li>
+                                    <li>• 3. Potential Environmental Impact Analysis</li>
+                                    <li>• 4. Environmental Protection Measures</li>
+                                    <li>• 5. Monitoring and Management Plan</li>
+                                </ul>
+                                <div class="mt-3 p-3 bg-green-100 rounded text-green-800 text-sm">
+                                    ✅ Report generation completed, meets environmental department requirements
+                                </div>
+                            </div>
+                        </div>
+                    `;
+                    taskRunning = false;
+                    document.getElementById('start-btn').textContent = 'Task Completed';
+                    return;
+                }
+                
+                // Update step visual
+                const stepElement = steps[currentStep];
+                const indicator = stepElement.querySelector('div > div');
+                indicator.className = 'h-5 w-5 rounded-full bg-blue-500 animate-spin';
+                indicator.innerHTML = '<div class="h-2 w-2 bg-white rounded-full mx-auto mt-1.5"></div>';
+                
+                const stepTitle = stepElement.querySelector('h5').textContent;
+                addLog(`🔄 Starting execution: ${stepTitle}`);
+                
+                // Simulate progress
+                setTimeout(() => {
+                    indicator.className = 'h-5 w-5 rounded-full bg-green-500';
+                    indicator.innerHTML = '<svg class="h-3 w-3 text-white mx-auto mt-1" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>';
+                    addLog(`✅ Completed: ${stepTitle}`);
+                    
+                    currentStep++;
+                    setTimeout(executeStep, 1000);
+                }, 2000 + Math.random() * 3000);
+            }
+            
+            executeStep();
+        }
+
+        function addLog(message) {
+            const logs = document.getElementById('task-logs');
+            const timestamp = new Date().toLocaleTimeString();
+            const logEntry = document.createElement('div');
+            logEntry.textContent = `[${timestamp}] ${message}`;
+            logs.appendChild(logEntry);
+            logs.scrollTop = logs.scrollHeight;
+        }
+
+        function closeTaskModal() {
+            document.getElementById('task-modal').classList.add('hidden');
+            taskRunning = false;
+            currentTask = null;
+        }
+    </script>
+</body>
+</html>
